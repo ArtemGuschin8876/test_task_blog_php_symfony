@@ -1,0 +1,54 @@
+nelmio_api_doc:
+  documentation:
+    info:
+      title: BlOG api
+      description: All Endpoints!
+      version: 1.0.0
+    components:
+      securitySchemes:
+        Bearer:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+    security:
+      - Bearer: [ ]
+    paths:
+      /api/login_check:
+        post:
+          tags:
+            - Authentication
+          summary: User authentication
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  required:
+                    - email
+                    - password
+                  properties:
+                    email:
+                      type: string
+                      example: 'ADMIN@gmail.com'
+                    password:
+                      type: string
+                      example: 'ADMIN'
+          responses:
+            '200':
+              description: Authentication successful
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        example: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...'
+            '401':
+              description: Invalid credentials
+
+  areas:
+    default:
+      path_patterns:
+        - ^/(?!(_error|_wdt|_profiler))
